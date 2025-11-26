@@ -1,0 +1,408 @@
+import { media } from '@kit.MediaKit';
+import { BusinessError } from '@kit.BasicServicesKit';
+import http from '@ohos.net.http';
+import { AppStorageV2 } from '@kit.ArkUI';
+
+const AI_RESULT_STORAGE_KEY: string = 'deal_ai_result';
+
+@Component
+export struct Trans {
+  @State videoSrc: string = '';
+  @State isPlaying: boolean = false;
+  @State errorMessage: string = '';
+  @State playerState: string = 'idle';
+  @State currentTime: number = 0;
+  @State duration: number = 0;
+  @State streamUrl: string = 'http://devimages.apple.com.edgekey.net/streaming/examples/bipbop_4x3/gear2/prog_index.m3u8';
+  @State downloadStatus: string = '未请求数据流';
+  @State captureStatus: string = '未抓取帧';
+  @State aiResult: string = '尚未同步';
+  avPlayer: media.AVPlayer | null = null;
+
+  aboutToAppear(): void {
+    this.initAVPlayer();
+    this.pullAIResult();
+  }
+
+  aboutToDisappear(): void {
+    this.releasePlayer();
+  }
+
+  private pullAIResult(): void {
+    // 使用AppStorage获取存储的AI结果
+    const stored: String | undefined = AppStorageV2.connect(String, AI_RESULT_STORAGE_KEY, () => new String('尚未同步'));
+    if (stored !== undefined) {
+      const stringValue: string = stored.toString();
+      if (stringValue && stringValue !== this.aiResult) {
+        this.aiResult = stringValue;
+      }
+    }
+  }
+
+  async initAVPlayer(): Promise<void> {
+    try {
+      this.avPlayer = await media.createAVPlayer();
+
+      this.avPlayer.on('stateChange', (state: string) => {
+        this.playerState = state;
+
+        switch (state) {
+          case 'prepared':
+            this.duration = this.avPlayer?.duration || 0;
+            break;
+          case 'playing':
+            this.isPlaying = true;
+            break;
+          case 'paused':
+          case 'stopped':
+            this.isPlaying = false;
+            break;
+          case 'completed':
+            this.isPlaying = false;
+            this.currentTime = 0;
+            break;
+        }
+      });
+
+      this.avPlayer.on('timeUpdate', (time: number) => {
+        this.currentTime = time;
+      });
+
+      this.avPlayer.on('endOfStream', () => {
+        this.isPlaying = false;
+        this.currentTime = 0;
+        this.playerState = 'completed';
+      });
+
+      this.avPlayer.on('error', (err: BusinessError) => {
+        this.errorMessage = `播放错误: ${err.message}`;
+        this.isPlaying = false;
+      });
+    } catch (err) {
+      const error = err as BusinessError;
+      this.errorMessage = `初始化播放器失败: ${error.message}`;
+    }
+  }
+
+  async loadMedia(url: string): Promise<void> {
+    if (!this.avPlayer) {
+      this.errorMessage = '播放器未初始化';
+      return;
+    }
+
+    try {
+      this.videoSrc = url;
+      this.avPlayer.url = url;
+    } catch (err) {
+      const error = err as BusinessError;
+      this.errorMessage = `加载媒体失败: ${error.message}`;
+    }
+  }
+
+  async startStreamPlayback(): Promise<void> {
+    await this.loadMedia(this.streamUrl);
+    if (!this.isPlaying) {
+      await this.playOrPause();
+    }
+  }
+
+  async playOrPause(): Promise<void> {
+    if (!this.avPlayer) {
+      this.errorMessage = '播放器未初始化';
+      return;
+    }
+
+    try {
+      if (this.isPlaying) {
+        await this.avPlayer.pause();
+      } else {
+        if (!this.videoSrc) {
+          await this.loadMedia(this.streamUrl);
+        }
+        await this.avPlayer.play();
+      }
+    } catch (err) {
+      const error = err as BusinessError;
+      this.errorMessage = `播放/暂停失败: ${error.message}`;
+    }
+  }
+
+  async stopVideoStream(): Promise<void> {
+    if (this.avPlayer && this.isPlaying) {
+      try {
+        await this.avPlayer.stop();
+        this.isPlaying = false;
+      } catch (err) {
+        const error = err as BusinessError;
+        this.errorMessage = `停止播放失败: ${error.message}`;
+      }
+    }
+  }
+
+  async seekTo(time: number): Promise<void> {
+    if (!this.avPlayer) {
+      this.errorMessage = '播放器未初始化';
+      return;
+    }
+
+    try {
+      if (this.playerState === 'prepared' || this.playerState === 'playing' ||
+        this.playerState === 'paused' || this.playerState === 'completed') {
+        await this.avPlayer.seek(time);
+      } else {
+        this.errorMessage = `当前状态不支持跳转: ${this.playerState}`;
+      }
+    } catch (err) {
+      const error = err as BusinessError;
+      this.errorMessage = `跳转失败: ${error.message}`;
+    }
+  }
+
+  releasePlayer(): void {
+    if (this.avPlayer) {
+      this.avPlayer.release();
+      this.avPlayer = null;
+    }
+  }
+
+  formatTime(seconds: number): string {
+    const mins = Math.floor(seconds / 60);
+    const secs = Math.floor(seconds % 60);
+    return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+  }
+
+  async fetchStreamSample(): Promise<void> {
+    const url = this.streamUrl.trim();
+    if (!url) {
+      this.downloadStatus = '请先输入数据流地址';
+      return;
+    }
+
+    const httpClient = http.createHttp();
+    try {
+      const response = await httpClient.request(url, {
+        method: http.RequestMethod.GET,
+        connectTimeout: 5000,
+        readTimeout: 8000
+      });
+
+      const size = this.getPayloadLength(response.result);
+      this.downloadStatus = `已请求数据流，接收 ${size} 字节`;
+    } catch (error) {
+      const bizError = error as BusinessError;
+      this.downloadStatus = `请求失败: ${bizError.message}`;
+    } finally {
+      httpClient.destroy();
+    }
+  }
+
+  private getPayloadLength(payload: string | ArrayBuffer | object | undefined): number {
+    if (typeof payload === 'string') {
+      return payload.length;
+    }
+    if (payload instanceof ArrayBuffer) {
+      return payload.byteLength;
+    }
+    return 0;
+  }
+
+  captureFrameInfo(): void {
+    if (!this.avPlayer) {
+      this.captureStatus = '无法抓取：播放器尚未就绪';
+      return;
+    }
+    if (!this.isPlaying) {
+      this.captureStatus = '请先启动播放再尝试抓帧';
+      return;
+    }
+    this.captureStatus = `关键帧信息已缓存 (时间戳 ${this.formatTime(this.currentTime)})`;
+  }
+
+  build() {
+    Scroll() {
+      Column() {
+        Text('DATA · STREAM 控制台')
+          .fontSize(26)
+          .fontWeight(FontWeight.Bold)
+          .margin({ top: 24, bottom: 6 })
+
+        Text('接入实时流数据，回放 AI 推理结果')
+          .fontSize(13)
+          .fontColor('#8c8c8c')
+          .margin({ bottom: 20 })
+
+        Column() {
+          Text('数据流通道')
+            .fontSize(16)
+            .fontWeight(FontWeight.Medium)
+            .margin({ bottom: 10 })
+
+          TextInput({ placeholder: '请输入流媒体地址', text: this.streamUrl })
+            .onChange((value: string) => {
+              this.streamUrl = value;
+            })
+            .width('100%')
+            .margin({ bottom: 12 })
+
+          Row() {
+            Button('拉流并播放')
+              .backgroundColor('#1890ff')
+              .fontColor(Color.White)
+              .borderRadius(10)
+              .onClick(() => {
+                this.startStreamPlayback();
+              })
+              .layoutWeight(1)
+
+            Button('仅加载')
+              .margin({ left: 10 })
+              .backgroundColor('#d9d9d9')
+              .fontColor(Color.Black)
+              .borderRadius(10)
+              .onClick(() => {
+                this.loadMedia(this.streamUrl);
+              })
+              .layoutWeight(1)
+          }
+        }
+        .width('90%')
+        .padding(16)
+        .backgroundColor('#f5f5f5')
+        .borderRadius(12)
+        .margin({ bottom: 18 })
+
+        Column() {
+          Text(`播放器状态: ${this.playerState}`)
+            .fontSize(14)
+            .fontColor('#333333')
+
+          if (this.errorMessage) {
+            Text(this.errorMessage)
+              .fontSize(12)
+              .fontColor('#ff4d4f')
+              .margin({ top: 6 })
+          }
+
+          Row() {
+            Text(this.formatTime(this.currentTime))
+              .fontSize(12)
+
+            Slider({
+              value: this.currentTime,
+              min: 0,
+              max: this.duration > 0 ? this.duration : 100,
+              step: 1,
+              style: SliderStyle.OutSet
+            })
+            .layoutWeight(1)
+            .onChange((value: number) => {
+              this.seekTo(value);
+            })
+
+            Text(this.duration > 0 ? this.formatTime(this.duration) : '00:00')
+              .fontSize(12)
+          }
+          .width('100%')
+          .margin({ top: 14 })
+
+          Row() {
+            Button(this.isPlaying ? '暂停' : '播放')
+              .onClick(() => {
+                this.playOrPause();
+              })
+              .layoutWeight(1)
+              .margin({ right: 10 })
+
+            Button('停止')
+              .onClick(() => {
+                this.stopVideoStream();
+              })
+              .layoutWeight(1)
+              .margin({ right: 10 })
+
+            Button('刷新AI结果')
+              .onClick(() => {
+                this.pullAIResult();
+              })
+              .layoutWeight(1)
+          }
+          .margin({ top: 18 })
+        }
+        .width('90%')
+        .padding(16)
+        .backgroundColor('#ffffff')
+        .borderRadius(12)
+        .margin({ bottom: 18 })
+
+        Column() {
+          Text('帧捕获 / 数据抓取')
+            .fontSize(16)
+            .fontWeight(FontWeight.Medium)
+            .margin({ bottom: 10 })
+
+          Row() {
+            Button('抓取关键帧')
+              .backgroundColor('#722ed1')
+              .fontColor(Color.White)
+              .borderRadius(10)
+              .onClick(() => {
+                this.captureFrameInfo();
+              })
+              .layoutWeight(1)
+
+            Button('请求数据流')
+              .margin({ left: 10 })
+              .backgroundColor('#13c2c2')
+              .fontColor(Color.White)
+              .borderRadius(10)
+              .onClick(() => {
+                this.fetchStreamSample();
+              })
+              .layoutWeight(1)
+          }
+
+          Text(this.captureStatus)
+            .fontSize(12)
+            .fontColor('#595959')
+            .margin({ top: 10 })
+
+          Text(this.downloadStatus)
+            .fontSize(12)
+            .fontColor('#595959')
+            .margin({ top: 4 })
+        }
+        .width('90%')
+        .padding(16)
+        .backgroundColor('#fafafa')
+        .borderRadius(12)
+        .margin({ bottom: 18 })
+
+        Column() {
+          Text('AI 分析结果')
+            .fontSize(16)
+            .fontWeight(FontWeight.Bold)
+            .margin({ bottom: 10 })
+
+          Scroll() {
+            Text(this.aiResult)
+              .fontSize(14)
+              .textAlign(TextAlign.Start)
+              .width('100%')
+          }
+          .width('100%')
+          .height(220)
+          .border({ width: 1, color: '#dddddd', style: BorderStyle.Solid })
+          .borderRadius(12)
+          .padding(12)
+        }
+        .width('90%')
+        .margin({ bottom: 40 })
+      }
+      .width('100%')
+      .alignItems(HorizontalAlign.Center)
+    }
+    .width('100%')
+    .height('100%')
+    .backgroundColor('#ffffff')
+  }
+}
