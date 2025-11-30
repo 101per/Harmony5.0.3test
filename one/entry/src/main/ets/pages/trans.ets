@@ -13,7 +13,7 @@ export struct Trans {
   @State playerState: string = 'idle';
   @State currentTime: number = 0;
   @State duration: number = 0;
-  @State streamUrl: string = 'http://devimages.apple.com.edgekey.net/streaming/examples/bipbop_4x3/gear2/prog_index.m3u8';
+  @State streamUrl: string = 'https://gossv-vcg.cfp.cn/videos/mts_videos/medium/temp/VCG42N1147239881.mp4';
   @State downloadStatus: string = '未请求数据流';
   @State captureStatus: string = '未抓取帧';
   @State aiResult: string = '尚未同步';
@@ -286,17 +286,43 @@ export struct Trans {
           .borderRadius(8)
           .margin({ bottom: 18 })
 
-          // 播放控制区
+          // 视频播放区域
           Column() {
-            Text('播放控制')
+            Text('视频播放')
               .fontSize(16)
               .fontWeight(FontWeight.Medium)
               .margin({ bottom: 15 })
               .width('100%')
               .textAlign(TextAlign.Start)
             
+            // 使用Video组件播放视频
+            Video({
+              src: this.streamUrl,
+              previewUri: '',
+            })
+            .width('100%')
+            .height(150)
+            .objectFit(ImageFit.Contain)
+            .margin({ bottom: 10 })
+            .onStart(() => {
+              console.log('视频开始播放');
+              this.isPlaying = true;
+            })
+            .onPause(() => {
+              console.log('视频暂停');
+              this.isPlaying = false;
+            })
+            .onFinish(() => {
+              console.log('视频播放完成');
+              this.isPlaying = false;
+            })
+            .onError(() => {
+              console.log('视频播放出错');
+              this.errorMessage = '视频播放出错';
+            })
+            
             Column() {
-              Text(`播放器状态: ${this.playerState}`)
+              Text(`播放器状态: ${this.isPlaying ? '播放中' : '已暂停'}`)
                 .fontSize(14)
                 .fontColor($r('app.color.text_primary'))
                 .width('100%')
@@ -312,34 +338,12 @@ export struct Trans {
               }
 
               Row() {
-                Text(this.formatTime(this.currentTime))
-                  .fontSize(12)
-
-                Slider({
-                  value: this.currentTime,
-                  min: 0,
-                  max: this.duration > 0 ? this.duration : 100,
-                  step: 1,
-                  style: SliderStyle.OutSet
-                })
-                .layoutWeight(1)
-                .onChange((value: number) => {
-                  this.seekTo(value);
-                })
-
-                Text(this.duration > 0 ? this.formatTime(this.duration) : '00:00')
-                  .fontSize(12)
-              }
-              .width('100%')
-              .margin({ top: 14 })
-
-              Row() {
                 Button(this.isPlaying ? '暂停' : '播放')
                   .backgroundColor($r('app.color.primary_blue'))
                   .fontColor(Color.White)
                   .borderRadius(8)
                   .onClick(() => {
-                    this.playOrPause();
+                    // 视频控制通过Video组件自身处理
                   })
                   .layoutWeight(1)
                   .margin({ right: 10 })
@@ -349,7 +353,7 @@ export struct Trans {
                   .fontColor($r('app.color.text_primary'))
                   .borderRadius(8)
                   .onClick(() => {
-                    this.stopVideoStream();
+                    // 视频控制通过Video组件自身处理
                   })
                   .layoutWeight(1)
                   .margin({ right: 10 })
