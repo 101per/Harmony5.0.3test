@@ -1,0 +1,58 @@
+{
+  "apiType": "stageMode",
+
+  // 通用构建配置
+  "buildOption": {
+    "resOptions": {
+      "copyCodeResource": {
+        "enable": false
+      }
+    }
+  },
+
+  "buildOptionSet": [
+    {
+      "name": "release",
+
+      "arkOptions": {
+        "runtimeOnly": {
+          "packages" : [
+            "libyolo.so"
+          ]
+        },
+        "obfuscation": {
+          "ruleOptions": {
+            "enable": false,
+            "files": [
+              "./obfuscation-rules.txt"
+            ]
+          }
+        }
+      },
+
+      // 排除其它架构的 so，确保只保留 arm64-v8a
+      "nativeLib": {
+        "filter": {
+          "excludes": [
+            "**/armeabi-v7a/*.so",
+            "**/x86_64/*.so"
+          ]
+        },
+        "debugSymbol": {
+          "strip": true,
+          "exclude": []
+        }
+      }
+    }
+  ],
+
+  "targets": [
+    {
+      "name": "default",
+      "runtimeOS": "HarmonyOS"
+    },
+    {
+      "name": "ohosTest"
+    }
+  ]
+}

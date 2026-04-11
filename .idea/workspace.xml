@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="ff763f69-9725-4241-a948-21bd5b0f6826" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/one/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/one/AppScope/app.json5" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/one/AppScope/resources/base/element/string.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/one/AppScope/resources/base/media/background.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/one/AppScope/resources/base/media/foreground.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/one/AppScope/resources/base/media/layered_image.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/one/build-profile.json5" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/one/code-linter.json5" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/one/entry/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/one/entry/build-profile.json5" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/one/entry/hvigorfile.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/one/entry/obfuscation-rules.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/one/entry/oh-package-lock.json5" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/one/entry/oh-package.json5" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/one/entry/src/main/ets/components/BottomTabBar.ets" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/one/entry/src/main/ets/entryability/EntryAbility.ets" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/one/entry/src/main/ets/entrybackupability/EntryBackupAbility.ets" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/one/entry/src/main/ets/ets/pages/AIchat.ets" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/one/entry/src/main/ets/pages/AIchat.ets" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/one/entry/src/main/ets/pages/Login.ets" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/one/entry/src/main/ets/pages/Main.ets" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/one/entry/src/main/ets/pages/MindSpore.ets" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/one/entry/src/main/ets/pages/Register.ets" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/one/entry/src/main/ets/pages/control.ets" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/one/entry/src/main/ets/pages/control_2.ets" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/one/entry/src/main/ets/pages/deal.ets" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/one/entry/src/main/ets/pages/history.ets" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/one/entry/src/main/ets/pages/home.ets" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/one/entry/src/main/ets/pages/mine.ets" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/one/entry/src/main/ets/utils/BlueController.ets" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/one/entry/src/main/ets/utils/CameraOptions.ets" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/one/entry/src/main/ets/utils/GlobalContext.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/one/entry/src/main/ets/utils/MindSporeController.ets" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/one/entry/src/main/ets/utils/PermissionHelper.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/one/entry/src/main/ets/utils/PhotoHelper.ets" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/one/entry/src/main/ets/utils/PickerUtil.ets" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/one/entry/src/main/ets/utils/ScanUtil.ets" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/one/entry/src/main/ets/utils/Utils.ets" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/one/entry/src/main/module.json5" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/one/entry/src/main/resources/base/element/color.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/one/entry/src/main/resources/base/element/float.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/one/entry/src/main/resources/base/element/string.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/one/entry/src/main/resources/base/media/Agent.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/one/entry/src/main/resources/base/media/Login_button.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/one/entry/src/main/resources/base/media/OA.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/one/entry/src/main/resources/base/media/OIP_C.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/one/entry/src/main/resources/base/media/arrow_right.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/one/entry/src/main/resources/base/media/back.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/one/entry/src/main/resources/base/media/background.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/one/entry/src/main/resources/base/media/battery.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/one/entry/src/main/resources/base/media/battery2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/one/entry/src/main/resources/base/media/camera.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/one/entry/src/main/resources/base/media/camera_close.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/one/entry/src/main/resources/base/media/camera_open.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/one/entry/src/main/resources/base/media/cameraback.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/one/entry/src/main/resources/base/media/control_select.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/one/entry/src/main/resources/base/media/control_unselect.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/one/entry/src/main/resources/base/media/deal_select.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/one/entry/src/main/resources/base/media/deal_unselect.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/one/entry/src/main/resources/base/media/device_select.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/one/entry/src/main/resources/base/media/device_unselect.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/one/entry/src/main/resources/base/media/edit.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/one/entry/src/main/resources/base/media/eye_open.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/one/entry/src/main/resources/base/media/file.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/one/entry/src/main/resources/base/media/fish.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/one/entry/src/main/resources/base/media/foreground.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/one/entry/src/main/resources/base/media/haigui.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/one/entry/src/main/resources/base/media/help.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/one/entry/src/main/resources/base/media/history1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/one/entry/src/main/resources/base/media/history2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/one/entry/src/main/resources/base/media/history3.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/one/entry/src/main/resources/base/media/history_select.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/one/entry/src/main/resources/base/media/history_unselect.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/one/entry/src/main/resources/base/media/home_select.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/one/entry/src/main/resources/base/media/home_unselect.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/one/entry/src/main/resources/base/media/lanya_close.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/one/entry/src/main/resources/base/media/lanya_open.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/one/entry/src/main/resources/base/media/lanyaback.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/one/entry/src/main/resources/base/media/layered_image.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/one/entry/src/main/resources/base/media/moon.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/one/entry/src/main/resources/base/media/pangxie.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/one/entry/src/main/resources/base/media/photo.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/one/entry/src/main/resources/base/media/qianshuiyuan.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/one/entry/src/main/resources/base/media/qq_login.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/one/entry/src/main/resources/base/media/settings.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/one/entry/src/main/resources/base/media/settings_icon.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/one/entry/src/main/resources/base/media/startIcon.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/one/entry/src/main/resources/base/media/suo.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/one/entry/src/main/resources/base/media/svg.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/one/entry/src/main/resources/base/media/svg1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/one/entry/src/main/resources/base/media/svg2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/one/entry/src/main/resources/base/media/trans_select.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/one/entry/src/main/resources/base/media/trans_unselect.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/one/entry/src/main/resources/base/media/user_info.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/one/entry/src/main/resources/base/media/usetime_back.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/one/entry/src/main/resources/base/media/voice.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/one/entry/src/main/resources/base/media/wechat_login.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/one/entry/src/main/resources/base/media/yaogan.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/one/entry/src/main/resources/base/media/yaogan_bian.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/one/entry/src/main/resources/base/media/youjian.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/one/entry/src/main/resources/base/profile/backup_config.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/one/entry/src/main/resources/base/profile/main_pages.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/one/entry/src/main/resources/dark/element/color.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/one/entry/src/main/resources/rawfile/mobilenetv2.ms" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/one/entry/src/main/resources/rawfile/test_fish.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/one/entry/src/main/resources/rawfile/test_fish2.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/one/entry/src/main/resources/rawfile/test_fish3.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/one/entry/src/main/resources/rawfile/yolov5s_oh5.ms" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/one/entry/src/mock/mock-config.json5" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/one/entry/src/ohosTest/ets/test/Ability.test.ets" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/one/entry/src/ohosTest/ets/test/List.test.ets" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/one/entry/src/ohosTest/module.json5" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/one/entry/src/test/List.test.ets" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/one/entry/src/test/LocalUnit.test.ets" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/one/hvigor/hvigor-config.json5" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/one/hvigorfile.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/one/oh-package-lock.json5" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/one/oh-package.json5" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 0
+}]]></component>
+  <component name="ProjectId" id="36prkGbYykSUcWEyM0eu5dBOaHU" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "main"
+  }
+}]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+</project>
